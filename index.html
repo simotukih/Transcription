@@ -7,10 +7,24 @@
 </head>
 <body>
     <h2>音声認識サンプル</h2>
-    <button id="btn">start</button>
+    <button id="btn">スタート</button>
     <div id="content"></div>
 
 <script>
+    <input type="file" class="fileSelector">
+    document.querySelector('.fileSelector').addEventListener('change', function(event) {
+        var file = event.target.files[0];
+      if (!(file instanceof File)) {
+        window.alert('Please upload file.');
+      } else if (file.type.indexOf('audio') === -1) {
+        window.alert('Please upload audio file.');
+      } else {
+        var src = window.URL.createObjectURL(file);
+        var audio = new Audio( src );
+        audio.play();
+      }
+    }, false);
+    
     const speech = new webkitSpeechRecognition();
     speech.lang = 'ja-JP';
 
